@@ -48,8 +48,8 @@ export const LogoutButton = styled.button`
 `;
 
 const Menu = styled.img`
-  height: 25px;
-  width: 25px;
+  height: 35px;
+  width: 35px;
   margin-right: 20px;
   :hover {
     cursor: pointer;
@@ -80,7 +80,7 @@ export default function NavBar() {
     <Wrapper>
       <Para>natta</Para>
       <a>
-        <Menu src="burger.svg"></Menu>
+        <Menu src="natta-icon.svg"></Menu>
       </a>
       {/* <LogoutButton onClick={handleLogout} className="sign-in" type="submit">
         Sign In

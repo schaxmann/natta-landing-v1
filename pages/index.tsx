@@ -22,7 +22,7 @@ interface Dimensions {
 interface DivProps extends Props, Dimensions {}
 
 export const Container = styled.div<Dimensions>`
-  height: 100svh;
+  height: 100lvh;
   width: 100svw;
   display: flex;
   flex-direction: column;
@@ -30,6 +30,17 @@ export const Container = styled.div<Dimensions>`
   justify-content: center;
   padding: 0;
   margin: 0;
+  overflow: hidden;
+`;
+
+export const SmallContainer = styled(Container)`
+  height: 100svh;
+`;
+
+export const DeckContainer = styled(Container)`
+  overscroll-behavior-y: contain;
+  overflow: hidden;
+  position: absolute;
 `;
 
 export const TicketDiv = styled.div<DivProps>`
@@ -76,13 +87,15 @@ const FeedbackDiv = styled.div<Dimensions>`
 `;
 
 const CompatDiv = styled.div<Dimensions>`
-  width: ${(dimensions) => dimensions.width && `${dimensions.width * 0.75}px`};
+  width: 75vw;
   color: white;
   padding-bottom: 0px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  overscroll-behavior-y: contain;
+  overflow: hidden;
 `;
 
 export const NattaTitle = styled.h2`
@@ -429,6 +442,7 @@ const LearnMore = styled.div`
   gap: 10px;
   position: relative;
   top: 12px;
+  z-index: 500;
 
   :hover {
     cursor: pointer;
@@ -480,7 +494,7 @@ const Landing: NextPage = () => {
 
   return (
     <div ref={scrollRef}>
-      <Container height={height} width={width}>
+      <SmallContainer height={height} width={width}>
         {animation && (
           <AnimationDiv {...bind()}>
             <Lottie
@@ -586,19 +600,32 @@ const Landing: NextPage = () => {
             more
           </Scrollchor>
         </LearnMore>
-      </Container>
+      </SmallContainer>
       <Container height={height} width={width} id="section-2">
-        <VideoTemp height={height} width={width} src="VideoDiv.png" />
+        {/* <VideoTemp height={height} width={width} src="VideoDiv.png" /> */}
+        <div
+          style={{ height: "100vh" }}
+          className="muse-video-player"
+          data-video="bMacWjd"
+          data-search="0"
+          data-links="0"
+          data-logo="0"
+          data-title="0"
+          data-sizing="fit"
+          data-coverplayposition="center"
+        ></div>
+        <script src="https://muse.ai/static/js/embed-player.min.js"></script>
       </Container>
-      <Container height={height} width={width}>
+      <DeckContainer height={height} width={width}>
         <CompatDiv height={height} width={width}>
           <CompatTitle>Compatitibility Test</CompatTitle>
           <CompatSub>Are you a match for natta?</CompatSub>
           <div style={{ height: "360px", width: "400px" }}></div>
           <Deck />
         </CompatDiv>
-      </Container>
-      <Container height={height} width={width}>
+      </DeckContainer>
+      <SmallContainer height={height} width={width}></SmallContainer>
+      <SmallContainer height={height} width={width}>
         <ParaDiv height={height} width={width}>
           <NattaTitle>
             natta <TealSpan>x</TealSpan> UoB
@@ -625,8 +652,8 @@ const Landing: NextPage = () => {
           </Para>
           <LastPara>Literally you, reading this, right now.</LastPara>
         </ParaDiv>
-      </Container>
-      <Container height={height} width={width}>
+      </SmallContainer>
+      <SmallContainer height={height} width={width}>
         <FeedbackDiv height={height} width={width}>
           <FeedbackTitle>Still Scrolling?</FeedbackTitle>
           <Para>
@@ -637,7 +664,7 @@ const Landing: NextPage = () => {
           <Feedback placeholder="I would hate it less if..."></Feedback>
           <FeedbackButton>Submit</FeedbackButton>
         </FeedbackDiv>
-      </Container>
+      </SmallContainer>
       <FooterDiv>
         <Footer> © 2023 Natta Chat Ltd</Footer>
       </FooterDiv>
